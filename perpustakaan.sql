@@ -42,11 +42,6 @@ CREATE TABLE `kategori_buku` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
-SET NAMES utf8mb4;
-
-INSERT INTO `keys` (`id`, `key`) VALUES
-(1,	'f99aecef3d12e02dcbb6260bbdd35189c89e6e73');
-
 DROP TABLE IF EXISTS `peminjaman`;
 CREATE TABLE `peminjaman` (
   `id` int NOT NULL AUTO_INCREMENT,
@@ -134,4 +129,4 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
--- 2021-05-01 02:50:42
+-- 2021-05-01 02:53:00
