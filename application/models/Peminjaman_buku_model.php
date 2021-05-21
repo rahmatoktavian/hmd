@@ -78,6 +78,6 @@ class Peminjaman_buku_model extends CI_Model {
 		$this->db->where('peminjaman_id', $peminjaman_id);
 		return $this->db->delete('peminjaman_buku');
 
-		//DELETE FROM peminjaman_buku WHERE id = 1
+		//DELETE FROM peminjaman_buku WHERE peminjaman_id = 1
 	}
 }
