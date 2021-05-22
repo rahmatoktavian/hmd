@@ -110,7 +110,7 @@ class Peminjaman_buku extends CI_Controller {
 		//proses multi query
 		$this->db->trans_begin();
 
-		//ambil stok buku
+		//ambil data peminjaman
 		$data_peminjaman_buku = $this->peminjaman_buku_model->read_single($id);
 		$buku_id = $data_peminjaman_buku['buku_id'];
 

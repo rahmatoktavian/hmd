@@ -54,8 +54,35 @@ class Peminjaman_buku_multi extends CI_Controller {
 		//menangkap data input dari view
 		$list_buku_id = $this->input->post('list_buku_id');
 
+		//proses multi query
+		$this->db->trans_begin();
+
 		//hapus buku id di table peminjaman buku berdasarkan peminjaman id url
-		$this->peminjaman_buku_model->delete_multi($peminjaman_id_url);
+		//$this->peminjaman_buku_model->delete_multi($peminjaman_id_url);
+
+
+		//ambil data peminjaman buku (where peminjaman id)
+		$data_peminjaman_buku = $this->peminjaman_buku_model->read($peminjaman_id_url);
+	
+		//looping data peminjaman buku
+		foreach($data_peminjaman_buku as $peminjaman_buku) {
+			$peminjaman_buku_id = $peminjaman_buku['id'];
+			$buku_id_delete = $peminjaman_buku['buku_id'];
+
+			//hapus buku id di table peminjaman buku
+			$this->peminjaman_buku_model->delete($peminjaman_buku_id);
+
+			//ambil stok buku
+			$data_buku_delete = $this->buku_model->read_single($buku_id_delete);
+			$stok_buku_delete = $data_buku_delete['stok'] + 1;
+			
+			//kurangi stok buku
+			$input_buku_delete = array(
+							'stok' => $stok_buku_delete
+						);
+
+			$this->buku_model->update($input_buku_delete, $buku_id_delete);
+		}
 
 		//insert list buku berdasarkan checkbox yang terpilih dari view
 		foreach($list_buku_id as $buku_id=>$value) {
@@ -66,9 +93,28 @@ class Peminjaman_buku_multi extends CI_Controller {
 							'buku_id' => $buku_id
 						);
 
-			//memanggil function insert pada peminjaman_buku model
 			//function insert berfungsi menyimpan/create data ke table peminjaman_buku di database
 			$this->peminjaman_buku_model->insert($input);
+
+			//ambil stok buku
+			$data_buku = $this->buku_model->read_single($buku_id);
+			$stok_buku_baru = $data_buku['stok'] - 1;
+			
+			//kurangi stok buku
+			$input_buku = array(
+							'stok' => $stok_buku_baru
+						);
+
+			$this->buku_model->update($input_buku, $buku_id);
+		}
+
+		//batalkan semua query (jika ada error)
+		if ($this->db->trans_status() === FALSE) {
+		    $this->db->trans_rollback();
+
+		//execute semua query (jika tidak ada error)
+		} else {
+			$this->db->trans_commit();
 		}
 		
 		//mengembalikan halaman ke function read
