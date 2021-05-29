@@ -31,6 +31,23 @@ class Buku extends CI_Controller {
 		$this->load->view('buku_read', $output);
 	}
 
+	public function read_theme() {
+		//memanggil function read pada buku model
+		//function read berfungsi mengambil/read data dari table buku di database
+		$data_buku = $this->buku_model->read();
+		
+		//mengirim data ke view
+		$output = array(
+						//data buku dikirim ke view
+						'judul' => 'Daftar Buku',
+						'data_buku' => $data_buku,
+						'theme_page' => 'buku_read_theme'
+					);
+
+		//memanggil file view
+		$this->load->view('theme/index', $output);
+	}
+
 	public function insert() {
 
 		//data kategori untuk dropdown

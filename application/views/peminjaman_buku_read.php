@@ -32,6 +32,22 @@
 	</table>
 	<br />
 
+	<form method="post" action="<?php echo site_url('peminjaman_buku/insert_barcode_submit/'.$peminjaman_id_url);?>">
+		<table>
+			<tr>
+				<td>Barcode</td>
+				<td>
+					<input type="text" name="buku_barcode" value="" autofocus="">
+				</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td><button type="submit" class="btn btn-primary">Simpan</button></td>
+			</tr>
+		</table>
+	</form>
+	<br />
+
 	<a href="<?php echo site_url('peminjaman_buku/insert/'.$peminjaman_id_url);?>">
 		Tambah Buku
 	</a>
