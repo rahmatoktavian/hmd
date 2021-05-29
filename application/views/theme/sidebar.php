@@ -25,13 +25,13 @@
   </div>
 
   <li class="nav-item">
-    <a class="nav-link" href="<?php echo site_url('buku/read');?>">
+    <a class="nav-link" href="<?php echo site_url('peminjaman/read');?>">
       <i class="fas fa-fw fa-paperclip"></i>
       <span>Peminjaman</span>
     </a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="<?php echo site_url('buku/read_theme');?>">
+    <a class="nav-link" href="<?php echo site_url('buku/read');?>">
       <i class="fas fa-fw fa-book"></i>
       <span>Buku</span>
     </a>
