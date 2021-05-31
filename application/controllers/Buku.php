@@ -56,11 +56,12 @@ class Buku extends CI_Controller {
 		//mengirim data ke view
 		$output = array(
 						'judul' => 'Tambah Buku',
-						'data_kategori' => $data_kategori
+						'data_kategori' => $data_kategori,
+						'theme_page' => 'buku_insert'
 					);
 
 		//memanggil file view
-		$this->load->view('buku_insert', $output);
+		$this->load->view('theme/index', $output);
 	}
 
 	public function insert_submit() {
